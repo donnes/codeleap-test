@@ -19,6 +19,7 @@
     "@storybook/react-native-server": "^5.3.19",
     "expo": "~37.0.3",
     "mobx": "^5.15.4",
+    "mobx-react-lite": "^2.0.7",
     "mobx-state-tree": "^3.16.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-react-native": "^3.8.1",
     "jest": "^26.0.1",
+    "jest-expo": "^38.0.0",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
     "typescript": "~3.8.3"
@@ -103,7 +105,25 @@
         "typescript": {}
       }
     },
+    "globals": {
+      "__DEV__": false,
+      "jasmine": false,
+      "beforeAll": false,
+      "afterAll": false,
+      "beforeEach": false,
+      "afterEach": false,
+      "test": false,
+      "expect": false,
+      "describe": false,
+      "jest": false,
+      "it": false
+    },
     "rules": {
+      "no-empty": "off",
+      "@typescript-eslint/ban-ts-ignore": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
       "import/prefer-default-export": "off",
       "import/extensions": [
         "error",
