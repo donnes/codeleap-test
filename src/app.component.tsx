@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
 import { RootStore, RootStoreProvider, setupRootStore } from './models';
 import { AppNavigator } from './navigation';
-import { colors } from './theme';
+import { theme } from './theme';
 
 const App:React.FC = () => {
   const [rootStore, setRootStore] = useState<RootStore>({});
@@ -14,7 +14,7 @@ const App:React.FC = () => {
 
   return (
     <RootStoreProvider value={rootStore}>
-      <ThemeProvider theme={{ colors }}>
+      <ThemeProvider theme={theme}>
         <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
           <AppNavigator />
         </SafeAreaProvider>
