@@ -8,9 +8,9 @@ import TextField from '../text-field';
 import MultilineField from '../multiline-field';
 import Button from '../button';
 
-const CareerForm: React.FC<CareerFormProps> = ({ onSave }) => (
+const CareerForm: React.FC<CareerFormProps> = ({ title, onSave }) => (
   <Container>
-    <Title>What’s on your mind?</Title>
+    <Title>{title}</Title>
 
     <FieldGroup>
       <FieldLabel>Title</FieldLabel>

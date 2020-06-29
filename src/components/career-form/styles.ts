@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 import { normalize } from '../../utils/normalize';
 
 export const Container = styled.View`
-  padding-vertical: 8px;
-  padding-horizontal: 8px;
+  padding-vertical: 16px;
+  padding-horizontal: 16px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.border};
   margin-bottom: 22px;

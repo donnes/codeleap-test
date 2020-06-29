@@ -16,7 +16,7 @@ const CareersList:React.FC = () => {
 
   return useObserver(() => (
     <Container>
-      <CareerForm onSave={() => null} />
+      <CareerForm title="What’s on your mind?" onSave={() => null} />
 
       {careers && careers.map((career) => (
         <CareerListItem career={career} />
