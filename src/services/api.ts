@@ -30,24 +30,23 @@ export class Api {
   /**
    * Creates a career.
    */
-  public async createCareer(data: CareerSnapshot): Promise<AxiosResponse> {
-    const response: AxiosResponse = await this.api.post('/', data);
-    return this.success(response);
+  public async createCareer(
+    data: { title: string, content: string, username: string | null },
+  ): Promise<AxiosResponse> {
+    return this.api.post('/', data);
   }
 
   /**
    * Updates a career.
    */
   public async updateCareer(id: number, data: CareerSnapshot): Promise<AxiosResponse> {
-    const response: AxiosResponse = await this.api.patch(`/${id}`, data);
-    return this.success(response);
+    return this.api.patch(`/${id}`, data);
   }
 
   /**
    * Deletes a career.
    */
   public async deleteCareer(id: number, data: CareerSnapshot): Promise<AxiosResponse> {
-    const response: AxiosResponse = await this.api.patch(`/${id}`, data);
-    return this.success(response);
+    return this.api.patch(`/${id}`, data);
   }
 }
