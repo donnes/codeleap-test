@@ -1,5 +1,6 @@
 import faker from 'faker';
 
+import { RootStoreModel, RootStore } from '../root-store/root-store';
 import { CareerSnapshot } from './career';
 import { CareerStoreModel, CareerStore } from './career-store';
 
@@ -8,15 +9,25 @@ jest.mock('axios');
 jest.setTimeout(20000);
 
 describe('CareerStoreModel', () => {
-  test('can create the career store', () => {
+  test('should create a career store', () => {
     const store: CareerStore = CareerStoreModel.create({});
     expect(store).toBeTruthy();
-    expect(store.careers).toStrictEqual([]);
-    expect(store.fetching).toBeFalsy();
-    expect(store.error).toBeFalsy();
   });
 
-  test('can get a list of careers', async () => {
+  test('should set error state if get list of careers fails', async () => {
+    const store: CareerStore = CareerStoreModel.create({}, {
+      api: {
+        async getCareers() {
+          return Promise.reject();
+        },
+      },
+    });
+
+    await store.getAll();
+    expect(store.error).toBeTruthy();
+  });
+
+  test('should get a list of careers', async () => {
     const mockCareers: CareerSnapshot[] = [
       {
         id: faker.random.number(),
@@ -37,5 +48,51 @@ describe('CareerStoreModel', () => {
 
     await store.getAll();
     expect(store.careers).toStrictEqual(mockCareers);
+  });
+
+  test('should set error state if create a career fails', async () => {
+    const store: CareerStore = CareerStoreModel.create({}, {
+      api: {
+        async getCareers() {
+          return Promise.reject();
+        },
+        async createCareer() {
+          return Promise.reject();
+        },
+      },
+    });
+
+    await store.create({ title: null, content: null, username: null });
+    expect(store.error).toBeTruthy();
+  });
+
+  test('should create a new career and refresh careers list', async () => {
+    const mockNewCareer = {
+      title: faker.name.title(),
+      content: faker.lorem.paragraph(),
+    };
+
+    const mockCareers: CareerSnapshot[] = [
+      {
+        id: faker.random.number(),
+        username: 'Donald',
+        created_datetime: faker.date.recent().toISOString(),
+        ...mockNewCareer,
+      },
+    ];
+
+    const rootStore: RootStore = RootStoreModel.create({}, {
+      api: {
+        async getCareers() {
+          return Promise.resolve({ results: mockCareers });
+        },
+        async createCareer() {
+          return Promise.resolve();
+        },
+      },
+    });
+
+    await rootStore.careerStore.create(mockNewCareer);
+    expect(rootStore.careerStore.careers).toStrictEqual(mockCareers);
   });
 });
