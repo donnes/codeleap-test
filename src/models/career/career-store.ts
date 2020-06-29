@@ -1,4 +1,4 @@
-import { flow, types } from 'mobx-state-tree';
+import { flow, types, getRoot } from 'mobx-state-tree';
 import { CareerModel } from './career';
 import { withEnvironment } from '../extensions';
 
@@ -7,11 +7,14 @@ export const CareerStoreModel = types
   .props({
     careers: types.optional(types.array(CareerModel), []),
     fetching: types.optional(types.boolean, false),
+    submitting: types.optional(types.boolean, false),
     error: types.optional(types.boolean, false),
   })
   .extend(withEnvironment)
   .actions((self) => ({
     getAll: flow(function* getAll() {
+      self.fetching = true;
+      self.error = false;
       try {
         const response = yield self.env.api.getCareers();
         self.careers = response.results;
@@ -19,6 +22,23 @@ export const CareerStoreModel = types
         self.error = true;
       } finally {
         self.fetching = false;
+      }
+    }),
+  }))
+  .actions((self) => ({
+    create: flow(function* create({ title, content }) {
+      self.submitting = true;
+      self.error = false;
+      try {
+        const { userStore } = getRoot(self);
+        const { username } = userStore;
+
+        yield self.env.api.createCareer({ title, content, username });
+        yield self.getAll();
+      } catch (error) {
+        self.error = true;
+      } finally {
+        self.submitting = false;
       }
     }),
   }));
