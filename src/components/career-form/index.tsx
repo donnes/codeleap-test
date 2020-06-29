@@ -11,8 +11,9 @@ import Button from '../button';
 const CareerForm: React.FC<CareerFormProps> = ({
   title, onSave, initialValues, submitting = false,
 }) => {
-  const [titleValue, setTitleValue] = useState('');
-  const [contentValue, setContentValue] = useState('');
+  const navigation = useNavigation();
+  const [titleValue, setTitleValue] = useState<string | undefined>(initialValues?.title);
+  const [contentValue, setContentValue] = useState<string | undefined>(initialValues?.content);
 
   const handleOnTitleValueChange = (value: string) => {
     setTitleValue(value);
@@ -24,8 +25,8 @@ const CareerForm: React.FC<CareerFormProps> = ({
 
   const handleOnSave = async () => {
     await onSave(titleValue, contentValue);
-    setContentValue('');
-    setTitleValue('');
+    setContentValue(undefined);
+    setTitleValue(undefined);
   };
 
   const isButtonDisabled = submitting || !titleValue || !contentValue;
@@ -39,7 +40,6 @@ const CareerForm: React.FC<CareerFormProps> = ({
         <TextField
           placeholder="Hello world"
           value={titleValue}
-          defaultValue={initialValues?.title}
           onChangeText={handleOnTitleValueChange}
         />
       </FieldGroup>
@@ -49,7 +49,6 @@ const CareerForm: React.FC<CareerFormProps> = ({
         <MultilineField
           placeholder="Content here"
           value={contentValue}
-          defaultValue={initialValues?.content}
           onChangeText={handleOnContentValueChange}
         />
       </FieldGroup>
