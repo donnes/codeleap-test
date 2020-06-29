@@ -1,5 +1,6 @@
 import React from 'react';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import moment from 'moment';
 import { CareerListItemProps } from './props';
 
 import {
@@ -30,7 +31,7 @@ const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => (
     <Content>
       <AuthorContainer>
         <Author>{`@${career.username}`}</Author>
-        <CreatedAt>25 minutes ago</CreatedAt>
+        <CreatedAt>{moment(career.created_datetime).fromNow()}</CreatedAt>
       </AuthorContainer>
       <Message>{career.content}</Message>
     </Content>
