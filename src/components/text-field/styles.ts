@@ -7,5 +7,6 @@ export const TextInput = styled.TextInput.attrs(({ theme }) => ({
   min-height: 28px;
   border-radius: 4px;
   border-width: 1px;
+  padding-horizontal: 8px;
   border-color: ${({ theme }) => theme.colors.border};
 `;
