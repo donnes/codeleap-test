@@ -1,11 +1,13 @@
 import { types } from 'mobx-state-tree';
 import { CareerStoreModel } from '../career';
+import { UserStoreModel } from '../user';
 
 /**
  * The RootStore model.
  */
 export const RootStoreModel = types.model('RootStore').props({
   careerStore: types.optional(CareerStoreModel, {}),
+  userStore: types.optional(UserStoreModel, {}),
 });
 
 /**
