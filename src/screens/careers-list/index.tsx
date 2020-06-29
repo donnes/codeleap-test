@@ -5,24 +5,30 @@ import CareerListItem from '../../components/career-list-item';
 
 import { Container } from './styles';
 import { useStores } from '../../models';
+import { CareerSnapshot } from '../../models/career';
 
 const CareersList:React.FC = () => {
   const { careerStore } = useStores();
-  const { careers } = careerStore;
 
   useEffect(() => {
     careerStore.getAll();
   }, []);
 
-  return useObserver(() => (
-    <Container>
-      <CareerForm title="What’s on your mind?" onSave={() => null} />
+  return useObserver(() => {
+    const { careers, fetching, submitting } = careerStore;
 
-      {careers && careers.map((career) => (
-        <CareerListItem career={career} />
+        <CareerForm
+          title="What’s on your mind?"
+          onSave={(title, content) => careerStore.create({ title, content })}
+          submitting={submitting}
+        />
+
+        {careers.map((career: CareerSnapshot) => (
+          <CareerListItem key={String(career.id)} career={career} />
       ))}
     </Container>
-  ));
+    );
+  });
 };
 
 export default CareersList;
