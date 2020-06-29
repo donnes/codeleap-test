@@ -25,3 +25,8 @@ export const FieldLabel = styled.Text`
   color: ${({ theme }) => theme.colors.black};
   margin-bottom: 8px;
 `;
+
+export const Buttons = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+`;

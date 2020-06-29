@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { CareerFormProps } from './props';
+import { useNavigation } from '@react-navigation/native';
 
+import { CareerFormProps } from './props';
 import {
-  Container, Title, FieldGroup, FieldLabel,
+  Container, Title, FieldGroup, FieldLabel, Buttons,
 } from './styles';
 import TextField from '../text-field';
 import MultilineField from '../multiline-field';
 import Button from '../button';
 
 const CareerForm: React.FC<CareerFormProps> = ({
-  title, onSave, initialValues, submitting = false,
+  title, onSave, initialValues, submitting = false, cancelable = false,
 }) => {
   const navigation = useNavigation();
   const [titleValue, setTitleValue] = useState<string | undefined>(initialValues?.title);
@@ -21,6 +22,10 @@ const CareerForm: React.FC<CareerFormProps> = ({
 
   const handleOnContentValueChange = (value: string) => {
     setContentValue(value);
+  };
+
+  const handleOnCancel = () => {
+    navigation.goBack();
   };
 
   const handleOnSave = async () => {
@@ -53,13 +58,22 @@ const CareerForm: React.FC<CareerFormProps> = ({
         />
       </FieldGroup>
 
-      <Button
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{ alignSelf: 'flex-end' }}
-        text="Save"
-        onPress={handleOnSave}
-        disabled={isButtonDisabled}
-      />
+      <Buttons>
+        {cancelable && (
+          <Button
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{ marginRight: 8 }}
+            text="Cancel"
+            onPress={handleOnCancel}
+          />
+        )}
+
+        <Button
+          text="Save"
+          onPress={handleOnSave}
+          disabled={isButtonDisabled}
+        />
+      </Buttons>
     </Container>
   );
 };

@@ -8,4 +8,5 @@ export interface CareerFormProps extends ViewProperties {
     content: string | undefined,
   },
   submitting?: boolean,
+  cancelable?: boolean,
 }
