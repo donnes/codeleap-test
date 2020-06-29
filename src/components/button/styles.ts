@@ -12,6 +12,7 @@ export const Touchable = styled.TouchableOpacity.attrs({
   height: 33px;
   padding-horizontal: 16px;
   background-color: ${({ theme }) => theme.colors.black};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export const Text = styled.Text.attrs({
