@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { RefreshControl } from 'react-native';
 import { useObserver } from 'mobx-react-lite';
 import CareerForm from '../../components/career-form';
 import CareerListItem from '../../components/career-list-item';
@@ -17,6 +18,12 @@ const CareersList:React.FC = () => {
   return useObserver(() => {
     const { careers, fetching, submitting } = careerStore;
 
+    return (
+      <Container
+        refreshControl={(
+          <RefreshControl refreshing={fetching} onRefresh={() => careerStore.getAll()} />
+      )}
+      >
         <CareerForm
           title="What’s on your mind?"
           onSave={(title, content) => careerStore.create({ title, content })}
@@ -25,8 +32,8 @@ const CareersList:React.FC = () => {
 
         {careers.map((career: CareerSnapshot) => (
           <CareerListItem key={String(career.id)} career={career} />
-      ))}
-    </Container>
+        ))}
+      </Container>
     );
   });
 };
