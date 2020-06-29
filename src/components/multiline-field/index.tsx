@@ -3,8 +3,15 @@ import { MultilineFieldProps } from './props';
 
 import { TextInput } from './styles';
 
-const MultilineField: React.FC<MultilineFieldProps> = ({ placeholder, onChangeText }) => (
-  <TextInput placeholder={placeholder} onChangeText={onChangeText} />
+const MultilineField: React.FC<MultilineFieldProps> = ({
+  placeholder, value, defaultValue, onChangeText,
+}) => (
+  <TextInput
+    placeholder={placeholder}
+    value={value}
+    defaultValue={defaultValue}
+    onChangeText={onChangeText}
+  />
 );
 
 export default MultilineField;
