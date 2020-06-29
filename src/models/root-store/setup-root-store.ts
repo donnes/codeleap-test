@@ -15,7 +15,7 @@ export async function setupRootStore() {
   let rootStore: RootStore;
   let data: any;
 
-  const env = Environment;
+  const env = new Environment();
 
   try {
     // load data from storage
