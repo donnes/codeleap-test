@@ -6,11 +6,13 @@ import { AppNavigator } from './navigation';
 import { theme } from './theme';
 
 const App:React.FC = () => {
-  const [rootStore, setRootStore] = useState<RootStore>({});
+  const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined);
 
   useEffect(() => {
     setupRootStore().then(setRootStore);
   }, []);
+
+  if (!rootStore) return null;
 
   return (
     <RootStoreProvider value={rootStore}>
