@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CareerFormProps } from './props';
 
 import {
@@ -8,23 +8,61 @@ import TextField from '../text-field';
 import MultilineField from '../multiline-field';
 import Button from '../button';
 
-const CareerForm: React.FC<CareerFormProps> = ({ title, onSave }) => (
-  <Container>
-    <Title>{title}</Title>
+const CareerForm: React.FC<CareerFormProps> = ({
+  title, onSave, initialValues, submitting = false,
+}) => {
+  const [titleValue, setTitleValue] = useState('');
+  const [contentValue, setContentValue] = useState('');
 
-    <FieldGroup>
-      <FieldLabel>Title</FieldLabel>
-      <TextField placeholder="Hello world" />
-    </FieldGroup>
+  const handleOnTitleValueChange = (value: string) => {
+    setTitleValue(value);
+  };
 
-    <FieldGroup>
-      <FieldLabel>Content</FieldLabel>
-      <MultilineField placeholder="Content here" />
-    </FieldGroup>
+  const handleOnContentValueChange = (value: string) => {
+    setContentValue(value);
+  };
 
-    {/* eslint-disable-next-line */}
-    <Button style={{ alignSelf: 'flex-end' }} text="Save" onPress={onSave} />
-  </Container>
-);
+  const handleOnSave = async () => {
+    await onSave(titleValue, contentValue);
+    setContentValue('');
+    setTitleValue('');
+  };
+
+  const isButtonDisabled = submitting || !titleValue || !contentValue;
+
+  return (
+    <Container>
+      <Title>{title}</Title>
+
+      <FieldGroup>
+        <FieldLabel>Title</FieldLabel>
+        <TextField
+          placeholder="Hello world"
+          value={titleValue}
+          defaultValue={initialValues?.title}
+          onChangeText={handleOnTitleValueChange}
+        />
+      </FieldGroup>
+
+      <FieldGroup>
+        <FieldLabel>Content</FieldLabel>
+        <MultilineField
+          placeholder="Content here"
+          value={contentValue}
+          defaultValue={initialValues?.content}
+          onChangeText={handleOnContentValueChange}
+        />
+      </FieldGroup>
+
+      <Button
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{ alignSelf: 'flex-end' }}
+        text="Save"
+        onPress={handleOnSave}
+        disabled={isButtonDisabled}
+      />
+    </Container>
+  );
+};
 
 export default CareerForm;

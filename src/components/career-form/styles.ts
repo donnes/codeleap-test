@@ -23,4 +23,5 @@ export const FieldGroup = styled.View`
 export const FieldLabel = styled.Text`
   font-size: ${normalize(16)}px;
   color: ${({ theme }) => theme.colors.black};
+  margin-bottom: 8px;
 `;
