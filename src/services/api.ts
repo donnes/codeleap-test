@@ -39,14 +39,17 @@ export class Api {
   /**
    * Updates a career.
    */
-  public async updateCareer(id: number, data: CareerSnapshot): Promise<AxiosResponse> {
+  public async updateCareer(
+    id: number,
+    data: { title: string, content: string, username: string | null },
+  ): Promise<AxiosResponse> {
     return this.api.patch(`/${id}`, data);
   }
 
   /**
    * Deletes a career.
    */
-  public async deleteCareer(id: number, data: CareerSnapshot): Promise<AxiosResponse> {
-    return this.api.patch(`/${id}`, data);
+  public async deleteCareer(id: number): Promise<AxiosResponse> {
+    return this.api.delete(`/${id}`);
   }
 }
