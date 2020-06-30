@@ -35,7 +35,7 @@ I choose to use a [boilerplate](https://github.com/infinitered/ignite-bowser) th
 
 ### Tests
 
-Are made unit tests of MST models and stores. Quite simple and not too much sophisticated but I think that coverages the major implementations.
+Were made unit tests of MST models and stores. Quite simple and not too much sophisticated but I think that coverages the major implementations.
 
 ### Improvements
 
