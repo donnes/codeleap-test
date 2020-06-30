@@ -5,6 +5,7 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { CareerListItemProps } from './props';
 
+import { useStores } from '../../models';
 import {
   Container, Header,
   Title,
@@ -19,6 +20,7 @@ import {
 
 const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => {
   const navigation = useNavigation();
+  const { userStore } = useStores();
 
   const handleOnRemove = () => {
     Alert.alert('', 'Are you sure you want to delete this item?', [
@@ -35,14 +37,16 @@ const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => {
     <Container>
       <Header>
         <Title>{career.title}</Title>
-        <Actions>
-          <Action onPress={handleOnRemove}>
-            <MaterialIcons name="delete-forever" size={24} color="white" />
-          </Action>
-          <Action onPress={handleOnEdit}>
-            <MaterialCommunityIcons name="square-edit-outline" size={24} color="white" />
-          </Action>
-        </Actions>
+        {userStore.username === career.username && (
+          <Actions>
+            <Action onPress={handleOnRemove}>
+              <MaterialIcons name="delete-forever" size={24} color="white" />
+            </Action>
+            <Action onPress={handleOnEdit}>
+              <MaterialCommunityIcons name="square-edit-outline" size={24} color="white" />
+            </Action>
+          </Actions>
+        )}
       </Header>
       <Content>
         <AuthorContainer>
