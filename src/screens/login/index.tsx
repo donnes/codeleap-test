@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useObserver } from 'mobx-react-lite';
 import TextField from '../../components/text-field';
 import Button from '../../components/button';
@@ -9,7 +10,7 @@ import { Container } from './styles';
 import { useStores } from '../../models';
 
 const Login:React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<{ 'CareersList': any }>>();
   const { userStore } = useStores();
   const [usernameValue, setUsernameValue] = useState('');
 
@@ -19,7 +20,7 @@ const Login:React.FC = () => {
 
   const handleOnEnter = () => {
     userStore.login(usernameValue);
-    navigation.navigate('CareersList');
+    navigation.replace('CareersList');
   };
 
   return useObserver(() => (
