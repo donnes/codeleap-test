@@ -26,6 +26,7 @@ Start Expo client.
 Run unit tests.
 
 ![Unit Tests](https://i.imgur.com/CZSaguI.png)
+![Unit Tests 2](https://i.imgur.com/taGleC8.png)
 
 ## About the development
 
