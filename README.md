@@ -27,7 +27,7 @@ Are made unit tests of MST models and stores. Quite simple and not too much soph
 
 ### Improvements
 
-I think a lot of improvements can be done like **form validations**, **empty states**, **error messages**, etc.
+I think a lot of improvements can be done like **form validations**, **empty states**, **error messages**, **user logout**, etc.
 
 ## Thanks
 
