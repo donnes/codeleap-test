@@ -6,7 +6,4 @@ export const Container = styled(Screen).attrs({
     flexGrow: 1,
     justifyContent: 'center',
   },
-})`
-  padding-vertical: 16px;
-  padding-horizontal: 16px;
-`;
+})``;

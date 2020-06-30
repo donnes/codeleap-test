@@ -6,7 +6,12 @@ export const SafeAreaView = styled(RNSafeAreaView)`
   background-color: transparent;
 `;
 
-export const ScrollView = styled.ScrollView`
+export const ScrollView = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+  },
+})`
   flex-grow: 1;
   background-color: ${({ theme }) => theme.colors.white};
 `;

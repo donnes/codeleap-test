@@ -33,10 +33,9 @@ export const Actions = styled.View`
 
 export const Action = styled.TouchableOpacity.attrs({
   hitSlop: {
-    top: 20, left: 20, bottom: 24, right: 24,
+    top: 40, left: 20, bottom: 60, right: 20,
   },
 })`
-  padding-vertical: 6px;
   width: 40px;
 `;
 
