@@ -41,6 +41,21 @@ export const CareerStoreModel = types
         self.submitting = false;
       }
     }),
+    update: flow(function* update(id, { title, content }) {
+      self.submitting = true;
+      self.error = false;
+      try {
+        const { userStore } = getRoot(self);
+        const { username } = userStore;
+
+        yield self.env.api.updateCareer(id, { title, content, username });
+        yield self.getAll();
+      } catch (error) {
+        self.error = true;
+      } finally {
+        self.submitting = false;
+      }
+    }),
   }));
 
 type CareerStoreType = typeof CareerStoreModel.Type;

@@ -95,4 +95,51 @@ describe('CareerStoreModel', () => {
     await rootStore.careerStore.create(mockNewCareer);
     expect(rootStore.careerStore.careers).toStrictEqual(mockCareers);
   });
+
+  test('should set error state if update a career fails', async () => {
+    const store: CareerStore = CareerStoreModel.create({}, {
+      api: {
+        async getCareers() {
+          return Promise.reject();
+        },
+        async updateCareer() {
+          return Promise.reject();
+        },
+      },
+    });
+
+    await store.update(0, { title: null, content: null, username: null });
+    expect(store.error).toBeTruthy();
+  });
+
+  test('should update a entry career and refresh careers list', async () => {
+    const mockCareer = {
+      id: faker.random.number(),
+      title: faker.name.title(),
+      content: faker.lorem.paragraph(),
+    };
+
+    const mockCareers: CareerSnapshot[] = [
+      {
+        username: 'Donald',
+        created_datetime: faker.date.recent().toISOString(),
+        ...mockCareer,
+      },
+    ];
+
+    const rootStore: RootStore = RootStoreModel.create({}, {
+      api: {
+        async getCareers() {
+          return Promise.resolve({ results: mockCareers });
+        },
+        async updateCareer() {
+          return Promise.resolve();
+        },
+      },
+    });
+
+    await rootStore.careerStore.update(mockCareer.id, mockCareer);
+    expect(rootStore.careerStore.careers).toStrictEqual(mockCareers);
+  });
+
 });
