@@ -142,4 +142,61 @@ describe('CareerStoreModel', () => {
     expect(rootStore.careerStore.careers).toStrictEqual(mockCareers);
   });
 
+  test('should set error state if remove a career fails', async () => {
+    const mockCareers: CareerSnapshot[] = [
+      {
+        id: faker.random.number(),
+        username: faker.internet.userName(),
+        title: faker.name.title(),
+        content: faker.lorem.paragraph(),
+        created_datetime: faker.date.recent().toISOString(),
+      },
+    ];
+
+    const store: CareerStore = CareerStoreModel.create({
+      careers: mockCareers,
+    }, {
+      api: {
+        async getCareers() {
+          return Promise.reject();
+        },
+        async removeCareer() {
+          return Promise.reject();
+        },
+      },
+    });
+
+    await store.careers[0].remove();
+    expect(store.error).toBeTruthy();
+  });
+
+  test('should remove a entry career and refresh careers list', async () => {
+    const mockCareers: CareerSnapshot[] = [
+      {
+        id: faker.random.number(),
+        username: faker.internet.userName(),
+        title: faker.name.title(),
+        content: faker.lorem.paragraph(),
+        created_datetime: faker.date.recent().toISOString(),
+      },
+    ];
+
+    const rootStore: RootStore = RootStoreModel.create({
+      careerStore: {
+        careers: mockCareers,
+      },
+    }, {
+      api: {
+        async getCareers() {
+          return Promise.resolve({ results: [] });
+        },
+        async deleteCareer() {
+          return Promise.resolve();
+        },
+      },
+    });
+
+    await rootStore.careerStore.careers[0].remove();
+    expect(rootStore.careerStore.careers).toStrictEqual([]);
+  });
 });

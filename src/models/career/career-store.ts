@@ -1,4 +1,6 @@
-import { flow, types, getRoot } from 'mobx-state-tree';
+import {
+  flow, types, getRoot, destroy,
+} from 'mobx-state-tree';
 import { CareerModel } from './career';
 import { withEnvironment } from '../extensions';
 
@@ -49,6 +51,19 @@ export const CareerStoreModel = types
         const { username } = userStore;
 
         yield self.env.api.updateCareer(id, { title, content, username });
+        yield self.getAll();
+      } catch (error) {
+        self.error = true;
+      } finally {
+        self.submitting = false;
+      }
+    }),
+    remove: flow(function* remove(item) {
+      self.submitting = true;
+      self.error = false;
+      try {
+        yield self.env.api.deleteCareer(item.id);
+        destroy(item);
         yield self.getAll();
       } catch (error) {
         self.error = true;

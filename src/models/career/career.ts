@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, flow, getParent } from 'mobx-state-tree';
 
 export const CareerModel = types
   .model()
@@ -8,7 +8,12 @@ export const CareerModel = types
     created_datetime: types.maybeNull(types.string),
     title: types.maybeNull(types.string),
     content: types.maybeNull(types.string),
-  });
+  })
+  .actions((self) => ({
+    remove: flow(function* remove() {
+      yield getParent(self, 2).remove(self);
+    }),
+  }));
 
 export type Career = typeof CareerModel.Type;
 export type CareerSnapshot = typeof CareerModel.SnapshotType;
