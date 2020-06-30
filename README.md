@@ -9,8 +9,8 @@ https://expo.io/@donnes/CodeleapFrontendTest
 
 ![Expo QRCode](https://i.imgur.com/5sNs2hj.png)
 
-> You should have the Expo Client App installed in your device.
-> https://itunes.apple.com/app/apple-store/id982107779
+> You should have the Expo Client App installed in your device.<br />
+> https://itunes.apple.com/app/apple-store/id982107779 <br />
 > https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www
 
 
