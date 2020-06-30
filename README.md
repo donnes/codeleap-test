@@ -3,6 +3,18 @@ This project was bootstrapped with [Expo](https://expo.io/),  Typescript, and Mo
 # Coding Test
 > Powered by [Codeleap](https://codeleap.co.uk/)
 
+https://expo.io/@donnes/CodeleapFrontendTest
+
+## Scan to open
+
+![Expo QRCode](https://i.imgur.com/5sNs2hj.png)
+
+> You should have the Expo Client App installed in your device.
+> https://itunes.apple.com/app/apple-store/id982107779
+> https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www
+
+
+
 ## Getting Started
 
 ### `yarn start`
