@@ -1,4 +1,6 @@
 import React from 'react';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import moment from 'moment';
 import { CareerListItemProps } from './props';
@@ -15,7 +17,15 @@ import {
   Message,
 } from './styles';
 
-const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => (
+const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => {
+  const navigation = useNavigation();
+  };
+
+  const handleOnEdit = () => {
+    navigation.navigate('CareersEdit', { career });
+  };
+
+  return (
   <Container>
     <Header>
       <Title>{career.title}</Title>
@@ -23,7 +33,7 @@ const CareerListItem: React.FC<CareerListItemProps> = ({ career }) => (
         <Action>
           <MaterialIcons name="delete-forever" size={24} color="white" />
         </Action>
-        <Action>
+          <Action onPress={handleOnEdit}>
           <MaterialCommunityIcons name="square-edit-outline" size={24} color="white" />
         </Action>
       </Actions>
